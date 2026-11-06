@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aag-pdf-suite"
+version = "0.1.0"
+description = "PDF repair, OCR and duplicate page removal in one Hebrew desktop app"
+requires-python = ">=3.11"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+dependencies = ["Pillow>=11", "pikepdf>=9,<11", "PyMuPDF>=1.25,<2", "PySide6-Essentials>=6.8,<7", "numpy>=2", "opencv-python-headless>=4.9"]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "pytest-qt>=4.4"]
+
+[project.scripts]
+aag-pdf-repair = "book2pdf.cli:main"
+aag-pdf-suite = "aag_pdf_suite.gui.app:main"
+
+[tool.setuptools.packages.find]
+include = ["book2pdf*", "aag_pdf_suite*"]
+
+[tool.setuptools.package-data]
+"aag_pdf_suite.gui" = ["*.svg"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+qt_api = "pyside6"
