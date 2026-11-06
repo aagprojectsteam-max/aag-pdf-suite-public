@@ -34,13 +34,19 @@ To remove the app, run `./uninstall.sh`. It deletes only the files the installer
 
 ## Command line
 
+The installer puts only the window launcher on your `PATH`. The command-line tools stay in the app's own environment, so point at it first:
+
+```sh
+APP=~/.local/share/aag-pdf-suite/venv/bin
+```
+
 Repair:
 
 ```sh
-aag-pdf-repair damaged.pdf
-aag-pdf-repair damaged.pdf -o repaired.pdf
-aag-pdf-repair --input /path/to/pdfs --output /path/to/repaired --recursive
-aag-pdf-repair --input /path/to/pdfs --output /path/to/repaired --recovery exact --dry-run
+$APP/aag-pdf-repair damaged.pdf
+$APP/aag-pdf-repair damaged.pdf -o repaired.pdf
+$APP/aag-pdf-repair --input /path/to/pdfs --output /path/to/repaired --recursive
+$APP/aag-pdf-repair --input /path/to/pdfs --output /path/to/repaired --recovery exact --dry-run
 ```
 
 Without `-o`, one file becomes `<name>.repaired.pdf` beside the source, and a folder goes to `repaired` beside it. Existing results are skipped when their stored hashes still match. `--overwrite` replaces them, `--validate-all-pages` renders every page instead of a sample, and `--report run.jsonl` chooses the report file.
@@ -48,8 +54,8 @@ Without `-o`, one file becomes `<name>.repaired.pdf` beside the source, and a fo
 OCR and duplicate removal without the window:
 
 ```sh
-python -m aag_pdf_suite.dedup.engine book.pdf -o out
-python -m aag_pdf_suite.dedup.engine book.pdf --no-ocr --keep 12,40-42 --remove 7,9
+$APP/python -m aag_pdf_suite.dedup.engine book.pdf -o out
+$APP/python -m aag_pdf_suite.dedup.engine book.pdf --no-ocr --keep 12,40-42 --remove 7,9
 ```
 
 ## How a repair is accepted
